@@ -1,6 +1,6 @@
 # Backend Recruitment Task
 
-* Implement a simple application that will allow Users to sign in through Auth0.
+* Implement a simple application that will allow Users to sign in through [Auth0](https://auth0.com/).
 * Once signed in, a User can see a table, rendered on the server, filled with data from the `answers` table.
 * The table should contain the following columns:
   * Learner name, Learner email, Quiz name, Question title, Answer value, Answer correctness, Answer creation date
