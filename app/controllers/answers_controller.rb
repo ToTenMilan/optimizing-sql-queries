@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
   def index
-    @answers = Answer.paginate(:page => params[:page])
+    @answers = Answer.all
   end
 end

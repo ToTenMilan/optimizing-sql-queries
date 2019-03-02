@@ -1,22 +1,24 @@
-%h2 Tablify
-%h4 Answers
-%table
-  %thead
-    %tr
-      %th Learner name
-      %th Learner email
-      %th Quiz
-      %th Question
-      %th Answer
-      %th Correct?
-      %th Answered
-  %tbody
-    - @answers.each do |a|
-      %tr
-        %td= a.learner.full_name
-        %td= a.learner.email
-        %td= a.possible_answer.question.quiz.name
-        %td= a.possible_answer.question.title
-        %td= a.possible_answer.value
-        %td= a.possible_answer.correct
-        %td= a.created_at
+.container
+  .col-md-10.col-md-offset-1
+    %h2 Tablify
+    %h4 Answers
+    %table.table.table-bordered.table-striped
+      %thead.thead-light
+        %tr
+          %th Learner name
+          %th Learner email
+          %th Quiz
+          %th Question
+          %th Answer
+          %th Correct?
+          %th Answered
+      %tbody
+        - @answers.each do |a|
+          %tr
+            %td= a.learner.full_name
+            %td= a.learner.email
+            %td= a.possible_answer.question.quiz.name
+            %td= a.possible_answer.question.title
+            %td= a.possible_answer.value
+            %td= a.possible_answer.correct
+            %td= a.created_at
