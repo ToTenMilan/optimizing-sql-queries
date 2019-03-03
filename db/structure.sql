@@ -22,6 +22,20 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -306,10 +320,31 @@ CREATE INDEX index_answers_on_learner_id ON public.answers USING btree (learner_
 
 
 --
--- Name: index_answers_on_possible_answer_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_answers_on_possible_answer_id_and_learner_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_answers_on_possible_answer_id ON public.answers USING btree (possible_answer_id);
+CREATE INDEX index_answers_on_possible_answer_id_and_learner_id ON public.answers USING btree (possible_answer_id, learner_id);
+
+
+--
+-- Name: index_learners_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_learners_on_email ON public.learners USING btree (email);
+
+
+--
+-- Name: index_learners_on_full_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_learners_on_full_name ON public.learners USING btree (full_name);
+
+
+--
+-- Name: index_possible_answers_on_correct; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_possible_answers_on_correct ON public.possible_answers USING btree (correct) WHERE (correct = false);
 
 
 --
@@ -320,10 +355,31 @@ CREATE INDEX index_possible_answers_on_question_id ON public.possible_answers US
 
 
 --
+-- Name: index_possible_answers_on_value; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_possible_answers_on_value ON public.possible_answers USING btree (value) WHERE ((value)::text = 'Possible Answer Incorrect'::text);
+
+
+--
 -- Name: index_questions_on_quiz_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_questions_on_quiz_id ON public.questions USING btree (quiz_id);
+
+
+--
+-- Name: index_questions_on_title; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_questions_on_title ON public.questions USING btree (title);
+
+
+--
+-- Name: index_quizzes_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_quizzes_on_name ON public.quizzes USING btree (name);
 
 
 --
@@ -369,6 +425,14 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190129113644'),
 ('20190129113719'),
 ('20190129113802'),
-('20190129113834');
+('20190129113834'),
+('20190303155048'),
+('20190303155144'),
+('20190303155232'),
+('20190303155320'),
+('20190303155357'),
+('20190303155902'),
+('20190303162603'),
+('20190303163720');
 
 

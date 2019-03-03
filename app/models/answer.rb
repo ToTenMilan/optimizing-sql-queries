@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Answer < ApplicationRecord
   belongs_to :learner
   belongs_to :possible_answer
@@ -35,4 +36,9 @@ class Answer < ApplicationRecord
             quiz_id: Quiz.where(name: params[:answer][:quiz_name]))))
     end
   }
+
+  def self.basic_query(params)
+    includes([:learner, { possible_answer: { question: :quiz }}])
+    .paginate(page: params[:page], per_page: 10)             
+  end
 end

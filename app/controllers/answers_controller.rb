@@ -1,23 +1,17 @@
+# frozen_string_literal: true
 class AnswersController < ApplicationController
   include Secured
   helper_method :sort_column, :sort_direction
   
   def index
     if params[:answer]
-      @answers = Answer.includes([:learner, { possible_answer: { question: :quiz }}])
-                      .joins([:learner, { possible_answer: { question: :quiz }}])
-                      .paginate(page: params[:page], per_page: 10)             
-                      .order(sort_column + ' ' + sort_direction)
+      @answers = Answer.basic_query(params)
                       .send(:learner_filter, params)
                       .send(:possible_answer_filter, params)
                       .send(:question_title_filter, params)
                       .send(:quiz_filter, params)
-      Rails.logger.info @answers
-      @answers
     else
-      @answers = Answer.all.includes([:learner, { possible_answer: { question: :quiz }}])                     
-                          .paginate(page: params[:page], per_page: 10)             
-                          .order(sort_column + ' ' + sort_direction)
+      @answers = Answer.all.basic_query(params)
     end
   end
 
