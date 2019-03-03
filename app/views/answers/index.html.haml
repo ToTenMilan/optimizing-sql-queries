@@ -1,6 +1,7 @@
 .container
   .col-md-10.col-md-offset-1
     %h2 Tablify
+    = link_to "Log Out", logout_path, class: 'btn btn-primary'
     %h4 Answers
     %table.table.table-bordered.table-striped
       %thead.thead-light
@@ -24,3 +25,4 @@
             %td= a.created_at
 
   = will_paginate @answers
+

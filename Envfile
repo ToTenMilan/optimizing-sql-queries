@@ -1,1 +1,3 @@
 variable :SECRET_KEY_BASE, :string
+variable :AUTH0_DOMAIN, :uri
+variable :AUTH0_CLIENT_ID, :string
