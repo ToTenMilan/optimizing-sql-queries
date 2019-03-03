@@ -3,19 +3,22 @@ class AnswersController < ApplicationController
   helper_method :sort_column, :sort_direction
   
   def index
-    @answers = Answer.all.includes([:learner, { possible_answer: { question: :quiz }}])                     
-                         .paginate(page: params[:page], per_page: 10)             
-                         .order(sort_column + ' ' + sort_direction)
-
-    # @answers = Answer.all.joins(:learner).order(params[:sort])
-
-    # @answers = Answer.all.includes([:learner, { possible_answer: { question: :quiz }}])
-    #                     .joins([:learner, { possible_answer: { question: :quiz }}])
-    #                     .paginate(page: params[:page], per_page: 10)                  
-    #                    #  .order("'#{params[:sort]}'")
-                         
-                          
-                         
+    if params[:answer]
+      @answers = Answer.includes([:learner, { possible_answer: { question: :quiz }}])
+                      .joins([:learner, { possible_answer: { question: :quiz }}])
+                      .paginate(page: params[:page], per_page: 10)             
+                      .order(sort_column + ' ' + sort_direction)
+                      .send(:learner_filter, params)
+                      .send(:possible_answer_filter, params)
+                      .send(:question_title_filter, params)
+                      .send(:quiz_filter, params)
+      Rails.logger.info @answers
+      @answers
+    else
+      @answers = Answer.all.includes([:learner, { possible_answer: { question: :quiz }}])                     
+                          .paginate(page: params[:page], per_page: 10)             
+                          .order(sort_column + ' ' + sort_direction)
+    end
   end
 
   private
@@ -27,7 +30,7 @@ class AnswersController < ApplicationController
       quizzes.name
       questions.title
       possible_answers.value
-    ].include?(params[:sort]) ? params[:sort] : 'name'
+    ].include?(params[:sort]) ? params[:sort] : 'learners.full_name'
   end
 
   def sort_direction
