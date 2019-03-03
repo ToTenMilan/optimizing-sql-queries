@@ -28,6 +28,7 @@ chdir APP_ROOT do
   puts "\n== Generating .env file =="
   unless File.exist?('.env')
     system('echo "SECRET_KEY_BASE=`cat /dev/urandom | tr -dc \'a-zA-Z0-9\' | fold -w 128 | head -n 1`" > .env')
+    
     puts "\nI need some data from your Auth0 app's dashboard:"
     puts "\tPlease provide auth0 Client ID"
     client_id = gets.strip

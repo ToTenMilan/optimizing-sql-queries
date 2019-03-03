@@ -1,0 +1,15 @@
+= form_tag answers_path, method: :get do
+  %span
+    %span= label_tag 'Learner Name'
+    %span= select 'answer', 'learner_full_name', options_for_select(options_for_learners), {},  class: 'form-control'
+  %span
+    %span= label_tag 'Quiz'
+    %span= select 'answer', 'quiz_name', options_for_select(options_for_quizzes), {},  class: 'form-control'
+  %span
+    %span= label_tag 'Question'
+    %span= select 'answer', 'question_title', options_for_select(options_for_questions), {},  class: 'form-control'
+  %span
+    %span= label_tag 'Answer'
+    %span= select 'answer', 'possible_answer_value', options_for_select(options_for_possible_answers), {},  class: 'form-control'
+  .btn= submit_tag 'Filter', class: 'btn btn-primary'
+  %span= link_to 'Reset Filters', '/answers', class: 'btn btn-primary'

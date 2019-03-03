@@ -1,45 +1,25 @@
-.container
-  .col-md-10.col-md-offset-1
-    %h2.brand= link_to 'TABLIFY', '/answers'
-    = link_to "Log Out", logout_path, class: 'btn btn-danger'
-    %h4 Answers
-
-    = form_tag answers_path, method: :get do
-      %span
-        %span= label_tag 'Learner Name'
-        %span= select 'answer', 'learner_full_name', options_for_select(options_for_learners), {},  class: 'form-control'
-      %span
-        %span= label_tag 'Quiz'
-        %span= select 'answer', 'quiz_name', options_for_select(options_for_quizzes), {},  class: 'form-control'
-      %span
-        %span= label_tag 'Question'
-        %span= select 'answer', 'question_title', options_for_select(options_for_questions), {},  class: 'form-control'
-      %span
-        %span= label_tag 'Answer'
-        %span= select 'answer', 'possible_answer_value', options_for_select(options_for_possible_answers), {},  class: 'form-control'
-      .btn= submit_tag 'Filter', class: 'btn btn-primary'
-      %span= link_to 'Reset Filters', '/answers', class: 'btn btn-primary'
-          
-    %table.table.table-bordered.table-striped
-      %thead.thead-light
+.div
+  %h4 Answers
+        
+  %table.table.table-bordered.table-striped
+    %thead.thead-light
+      %tr
+        %th= sortable 'learners.full_name', 'Learner name'
+        %th= sortable 'learners.email', 'Learner email'
+        %th= sortable 'quizzes.name', 'Quiz'
+        %th= sortable 'questions.title', 'Question'
+        %th= sortable 'possible_answers.value', 'Answer'
+        %th Correct?
+        %th Answered
+    %tbody
+      - @answers.each do |a|
         %tr
-          %th= sortable 'learners.full_name', 'Learner name'
-          %th= sortable 'learners.email', 'Learner email'
-          %th= sortable 'quizzes.name', 'Quiz'
-          %th= sortable 'questions.title', 'Question'
-          %th= sortable 'possible_answers.value', 'Answer'
-          %th Correct?
-          %th Answered
-      %tbody
-        - @answers.each do |a|
-          %tr
-            %td= a.learner.full_name
-            %td= a.learner.email
-            %td= a.possible_answer.question.quiz.name
-            %td= a.possible_answer.question.title
-            %td= a.possible_answer.value
-            %td= a.possible_answer.correct
-            %td= time_ago_in_words(a.created_at) + ' ago'
+          %td= a.learner.full_name
+          %td= a.learner.email
+          %td= a.possible_answer.question.quiz.name
+          %td= a.possible_answer.question.title
+          %td= a.possible_answer.value
+          %td= a.possible_answer.correct
+          %td= time_ago_in_words(a.created_at) + ' ago'
 
-  = will_paginate @answers
-
+= will_paginate @answers

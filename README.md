@@ -23,8 +23,11 @@ Improve the `bin/setup` script to ask for/generate all required configuration va
 * After login, user sees the answers table
 * with required columns
 * table is paginated
-* filtering (few bugs to fix)
-* sorting
+* filtering by form
+  * issues with filtering to be fixed:
+    1. filters only when all four inputs are filled
+    2. not sanitized filter params
+* click on header to sort
 
 
 Data for table is eager loaded

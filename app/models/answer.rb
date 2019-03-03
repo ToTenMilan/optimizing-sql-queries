@@ -3,16 +3,14 @@ class Answer < ApplicationRecord
   belongs_to :learner
   belongs_to :possible_answer
 
-  scope :learner_filter, -> (params) {
+  scope :learner_full_name_filter, -> (params) {
     if params[:answer][:learner_full_name]
       where(learner_id: Learner.where(full_name: params[:answer][:learner_full_name]))
     end
   }
 
-  scope :possible_answer_filter, -> (params) {
-    Rails.logger.info 'in pos answer filter ========='
+  scope :possible_answer_value_filter, -> (params) {
     if params[:answer][:possible_answer_value]
-      Rails.logger.info 'in pos answer filter before where ========='
       where(possible_answer_id: PossibleAnswer.where(
         value: params[:answer][:possible_answer_value]))
     end
@@ -26,10 +24,8 @@ class Answer < ApplicationRecord
     end
   }
 
-  scope :quiz_filter, -> (params) {
-    Rails.logger.info 'in quiz filter ========='
+  scope :quiz_name_filter, -> (params) {
     if params[:answer][:quiz_name]
-      Rails.logger.info 'in quiz filter before where ========='
       where(
         possible_answer_id: PossibleAnswer.where(
           question_id: Question.where(

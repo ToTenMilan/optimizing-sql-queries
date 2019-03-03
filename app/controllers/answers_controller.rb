@@ -6,12 +6,14 @@ class AnswersController < ApplicationController
   def index
     if params[:answer]
       @answers = Answer.basic_query(params)
-                      .send(:learner_filter, params)
-                      .send(:possible_answer_filter, params)
+                      .send(:learner_full_name_filter, params)
+                      .send(:possible_answer_value_filter, params)
                       .send(:question_title_filter, params)
-                      .send(:quiz_filter, params)
+                      .send(:quiz_name_filter, params)
+                      .order(sort_column + ' ' + sort_direction)
     else
       @answers = Answer.all.basic_query(params)
+                          .order(sort_column + ' ' + sort_direction)
     end
   end
 

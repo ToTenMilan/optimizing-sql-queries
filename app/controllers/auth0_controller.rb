@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Auth0Controller < ApplicationController
   def callback
     # This stores all the user information that came from Auth0
