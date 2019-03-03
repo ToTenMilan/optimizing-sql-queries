@@ -6,11 +6,11 @@
     %table.table.table-bordered.table-striped
       %thead.thead-light
         %tr
-          %th Learner name
-          %th Learner email
-          %th Quiz
-          %th Question
-          %th Answer
+          %th= sortable 'learners.full_name', 'Learner name'
+          %th= sortable 'learners.email', 'Learner email'
+          %th= sortable 'quizzes.name', 'Quiz'
+          %th= sortable 'questions.title', 'Question'
+          %th= sortable 'possible_answers.value', 'Answer'
           %th Correct?
           %th Answered
       %tbody
@@ -22,7 +22,7 @@
             %td= a.possible_answer.question.title
             %td= a.possible_answer.value
             %td= a.possible_answer.correct
-            %td= a.created_at
+            %td= time_ago_in_words(a.created_at) + ' ago'
 
   = will_paginate @answers
 
