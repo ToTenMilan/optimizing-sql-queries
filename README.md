@@ -1,15 +1,14 @@
-## Solved
+## Optimizing sql-queries exercise
 
-###### (added basic bootstrap and UI for joy of developing)
-
-* Implemented auth0 authentication
-* After login, user sees the answers table
+* added basic bootstrap and UI
+* implemented auth0 authentication
+* after login, user sees the answers table
 * with required columns
 * table is paginated
 * filtering by form
 * click on header to sort
-* Data for table is eager loaded
-* Indexes added:
+* data for table is eager loaded
+* indexes added:
 ```ruby
   :learners, :full_name
   :learners, :email, unique: true
@@ -23,5 +22,5 @@
   :answers, [:possible_answer_id, :learner_id]
 ```
 
-* Sensitive data in dotenv and envied
+* sensitive data in dotenv and envied
 * bin/setup improvement
