@@ -1,4 +1,7 @@
 .div
+  %h2.brand= link_to 'TABLIFY', '/answers'
+  = link_to "Log Out", logout_path, class: 'btn btn-danger'
+  = render 'answers/filtering'
   %h4 Answers
         
   %table.table.table-bordered.table-striped
